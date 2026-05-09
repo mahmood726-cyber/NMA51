@@ -10,7 +10,6 @@
 "BUGSnet__parkinsons_arm",TRUE,FALSE,7,4,3,TRUE,"",""
 "BUGSnet__parkinsons",FALSE,TRUE,NA,NA,NA,TRUE,"",""
 "BUGSnet__thrombolytic",TRUE,FALSE,58,8,28,TRUE,"",""
-"example_bin",TRUE,FALSE,4,3,2,TRUE,"",""
 "gemtc__atrialFibrillation",TRUE,FALSE,63,17,26,TRUE,"",""
 "gemtc__blocker",TRUE,FALSE,44,2,22,TRUE,"",""
 "gemtc__certolizumab",TRUE,FALSE,24,7,12,TRUE,"",""

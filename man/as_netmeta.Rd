@@ -6,6 +6,9 @@
 \usage{
 as_netmeta(x)
 }
+\arguments{
+\item{x}{An \code{nma_data} object returned by \code{\link[=get_dataset]{get_dataset()}}.}
+}
 \description{
 Convert to a netmeta object (arm- OR contrast-level)
 }

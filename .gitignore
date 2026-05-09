@@ -1,1 +1,22 @@
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+# Local/session files
+PROGRESS.md
+.env
+.env.*
+# R local state and checks
+.Rproj.user/
+*.Rcheck/
+*.tar.gz
+# Python local state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+# OS/editor files
+.DS_Store
+Thumbs.db

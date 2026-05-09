@@ -1,9 +1,14 @@
 Package: nmadatasets
-Title: What the Package Does (One Line, Title Case)
+Title: Curated Network Meta-Analysis Datasets
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Mahmood", "Ahmad", , "mahmood.ahmad2@nhs.net", role = c("aut", "cre"))
+Author: Mahmood Ahmad
+Maintainer: Mahmood Ahmad <mahmood.ahmad2@nhs.net>
+Description: Curates network meta-analysis datasets with registry helpers,
+    validation tools, and adapters for common NMA packages. The package
+    preserves upstream provenance and fails closed when required source
+    fields are missing.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -11,12 +16,12 @@ RoxygenNote: 7.3.3
 Suggests: 
     gemtc,
     httr,
+    meta,
     netmeta,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
-    dplyr,
     jsonlite,
-    rlang,
-    stringr,
-    tibble
+    stats,
+    tibble,
+    utils

@@ -1,4 +1,5 @@
 #' Convert to a gemtc network
+#' @param x An `nma_data` object returned by [get_dataset()].
 #' @export
 as_gemtc <- function(x){
   stopifnot(inherits(x,'nma_data'))
@@ -16,11 +17,13 @@ as_gemtc <- function(x){
   gemtc::mtc.network(data.ab = ab, treatments = tr) }
 
 #' Convert to a netmeta object (arm- OR contrast-level)
+#' @param x An `nma_data` object returned by [get_dataset()].
 #' @export
 as_netmeta <- function(x){
   stopifnot(inherits(x,'nma_data'))
   if (!requireNamespace('netmeta', quietly=TRUE)) stop("Package 'netmeta' is required for as_netmeta().")
   if (!is.null(x$contrast)){
+    if (!requireNamespace('netmeta', quietly=TRUE)) stop("Package 'netmeta' is required for contrast-level as_netmeta().")
     df <- x$contrast; nms <- tolower(names(df)); names(df) <- nms;
     if (all(c('lnor','selnor')%in%nms)) { df$te <- df$lnor; df$sete <- df$selnor }
     if (!'studlab'%in%names(df)) df$studlab <- df$study %||% df$author %||% seq_len(nrow(df))
@@ -28,7 +31,8 @@ as_netmeta <- function(x){
     return(netmeta::netmeta(TE = df$te, seTE = df$sete, treat1 = df$treat1, treat2 = df$treat2, studlab = df$studlab, sm = sm, data = df))
   }
   # fallback: build from arm-level using pairwise()
+  if (!requireNamespace('meta', quietly=TRUE)) stop("Package 'meta' is required for arm-level as_netmeta().")
   ab <- x$arm; sm <- x$meta$preferred_measure %||% if (all(c('r','n')%in%names(ab))) 'OR' else 'MD'
-  if (all(c('r','n')%in%names(ab))) return(netmeta::pairwise(treat = treatment, event = r, n = n, studlab = study, data = ab, sm = sm))
-  if (all(c('mean','sd','n')%in%names(ab))) return(netmeta::pairwise(treat = treatment, mean = mean, sd = sd, n = n, studlab = study, data = ab, sm = sm))
+  if (all(c('r','n')%in%names(ab))) return(meta::pairwise(treat = treatment, event = r, n = n, studlab = study, data = ab, sm = sm))
+  if (all(c('mean','sd','n')%in%names(ab))) return(meta::pairwise(treat = treatment, mean = mean, sd = sd, n = n, studlab = study, data = ab, sm = sm))
   stop('Neither contrast nor arm columns recognized for netmeta.') }

@@ -40,7 +40,7 @@ scan_and_register_upstream <- function(pkgs, install_if_missing = TRUE, write_no
   rows <- list()
   for (pkg in pkgs) {
     if (!requireNamespace(pkg, quietly = TRUE)) next
-    cat('→ scanning', pkg, '...\n')
+    cat('-> scanning', pkg, '...\n')
     dd <- try(utils::data(package = pkg)$results, silent = TRUE)
     items <- character(0)
     if (!inherits(dd, 'try-error') && !is.null(dd) && NROW(dd)) {

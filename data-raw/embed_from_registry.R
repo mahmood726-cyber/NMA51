@@ -19,17 +19,17 @@ reg <- utils::read.csv(reg_path, stringsAsFactors = FALSE)
 # Determine which ids are already embedded (any of _studies/_contrast/.csv present)
 ext <- if (dir.exists('inst/extdata')) 'inst/extdata' else { dir.create('inst/extdata', recursive = TRUE); 'inst/extdata' }
 have <- unique(sub('_(nodes|studies|contrast)\\.csv$','', sub('\\.csv$','', list.files(ext, pattern='\\.csv$', full.names = FALSE))))
-todo <- reg[!(reg$id %in% have) & !is.na(reg$package) & !is.na(reg$object), , drop = FALSE]
+pending_entries <- reg[!(reg$id %in% have) & !is.na(reg$package) & !is.na(reg$object), , drop = FALSE]
 
-if (!nrow(todo)) { message('No new registry entries to embed.'); quit(save='no') }
+if (!nrow(pending_entries)) { message('No new registry entries to embed.'); quit(save='no') }
 
-ensure(unique(todo$package))
+ensure(unique(pending_entries$package))
 
 embedded <- character()
 failed <- data.frame(id=character(), reason=character(), stringsAsFactors=FALSE)
 
-for (i in seq_len(nrow(todo))) {
-  id <- todo$id[i]; pkg <- todo$package[i]; obj <- todo$object[i]
+for (i in seq_len(nrow(pending_entries))) {
+  id <- pending_entries$id[i]; pkg <- pending_entries$package[i]; obj <- pending_entries$object[i]
   message('Embedding ', id, ' from ', pkg, '::', obj)
   ok <- try({
     raw <- get_upstream_raw(id)

@@ -145,6 +145,6 @@ cran_find_and_register <- function(install = FALSE){
     if (length(miss)) install.packages(miss)
   }
   if (!exists('scan_and_register_upstream'))
-    stop('scan_and_register_upstream() not found — source R/upstream_scanner.R first.')
+    stop('scan_and_register_upstream() not found -- source R/upstream_scanner.R first.')
   scan_and_register_upstream(pkgs, install_if_missing = FALSE, write_now = TRUE)
 }
